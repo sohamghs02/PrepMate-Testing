@@ -1,2 +1,78 @@
-/target/
-node_modules
+# ===============================
+# Java / Maven / Gradle
+# ===============================
+target/
+build/
+out/
+*.class
+*.jar
+*.war
+*.ear
+
+# ===============================
+# IDE Files
+# ===============================
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# VS Code
+.vscode/
+
+# ===============================
+# OS Files
+# ===============================
+.DS_Store
+Thumbs.db
+
+# ===============================
+# Logs & Reports
+# ===============================
+*.log
+logs/
+test-output/
+reports/
+allure-results/
+allure-report/
+extent-reports/
+
+# ===============================
+# Selenium / Automation
+# ===============================
+screenshots/
+downloads/
+videos/
+
+# ===============================
+# Environment & Secrets
+# ===============================
+.env
+*.env
+config.properties
+application.properties
+secrets.properties
+
+# ===============================
+# Node / Prettier (if used)
+# ===============================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ===============================
+# Cucumber
+# ===============================
+cucumber-reports/
+
+# ===============================
+# Temporary Files
+# ===============================
+*.tmp
+*.swp
+*.bak
