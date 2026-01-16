@@ -37,23 +37,25 @@ The objective is to ensure **functional correctness, reliability, performance st
 
 ## 🧰 Technology Stack
 
-| Layer | Tools |
-|-----|------|
-| UI Automation | Selenium, TestNG, Cucumber, JUnit |
-| API Automation | Postman, RestAssured |
-| Exploratory Testing | Manual Session-Based Testing |
-| Performance Testing | Apache JMeter |
-| CI/CD | Jenkins |
-| Build & VCS | Maven, Git |
+| Layer               | Tools                             |
+| ------------------- | --------------------------------- |
+| UI Automation       | Selenium, TestNG, Cucumber, JUnit |
+| API Automation      | Postman, RestAssured              |
+| Exploratory Testing | Manual Session-Based Testing      |
+| Performance Testing | Apache JMeter                     |
+| CI/CD               | Jenkins                           |
+| Build & VCS         | Maven, Git                        |
 
 ---
 
 ## 🖥️ Frontend Automation
 
 ### Scope
+
 Automate critical end-to-end user journeys and UI validations.
 
 ### Tools & Ownership
+
 - **Selenium + TestNG** –  
   <img src="https://avatars.githubusercontent.com/debanjanx-dev" width="20"/> **[Debanjan Mukherjee](https://github.com/debanjanx-dev)**
 
@@ -61,6 +63,7 @@ Automate critical end-to-end user journeys and UI validations.
   <img src="https://avatars.githubusercontent.com/sohamghs02" width="20"/> **[Soham Ghosh](https://github.com/sohamghs02)**
 
 ### Key Features
+
 - Page Object Model (POM)
 - Reusable **global screenshot utility**
 - Failure and on-demand screenshots
@@ -72,15 +75,18 @@ Automate critical end-to-end user journeys and UI validations.
 ## 🧪 Exploratory Testing
 
 ### Scope
+
 Unscripted, experience-driven testing to uncover hidden defects.
 
 ### Coverage
+
 - UI/UX usability validation
 - Boundary & edge case testing
 - Session-based exploratory testing
 - Detailed bug reports with screenshots and steps
 
 ### Ownership
+
 - <img src="https://avatars.githubusercontent.com/Roach119" width="20"/> **[Uddipan Sengupta](https://github.com/Roach119)**
 
 ---
@@ -88,9 +94,11 @@ Unscripted, experience-driven testing to uncover hidden defects.
 ## 🔗 API Automation
 
 ### Scope
+
 Validate backend services independently and alongside UI workflows.
 
 ### Tools & Ownership
+
 - **Postman** –  
   <img src="https://avatars.githubusercontent.com/Roach119" width="20"/> **[Uddipan Sengupta](https://github.com/Roach119)**
 
@@ -98,6 +106,7 @@ Validate backend services independently and alongside UI workflows.
   <img src="https://avatars.githubusercontent.com/arunava2018" width="20"/> **[Arunava Banerjee](https://github.com/arunava2018)**
 
 ### Coverage
+
 - Authentication APIs (Login / Signup)
 - Positive & negative scenarios
 - Token-based authorization
@@ -108,13 +117,16 @@ Validate backend services independently and alongside UI workflows.
 ## ⚡ Performance Testing
 
 ### Scope
+
 Assess application behavior under load and validate response times.
 
 ### Tool & Ownership
+
 - **Apache JMeter** –  
   <img src="https://avatars.githubusercontent.com/aryeshworks" width="20"/> **[Aryesh Saha](https://github.com/aryeshworks)**
 
 ### Configuration Guidelines
+
 - Threads (Users): `25`
 - Ramp-up Period: `5`
 - Loop Count: `10`
@@ -124,13 +136,16 @@ Assess application behavior under load and validate response times.
 ## 🚀 DevOps & CI/CD Integration
 
 ### Scope
+
 Automate execution of all test layers on every code change.
 
 ### Tool & Ownership
+
 - **Jenkins** –  
   <img src="https://avatars.githubusercontent.com/aryeshworks" width="20"/> **[Aryesh Saha](https://github.com/aryeshworks)**
 
 ### Pipeline Stages
+
 1. Code checkout
 2. Build & dependency setup
 3. UI automation execution
@@ -142,10 +157,10 @@ Automate execution of all test layers on every code change.
 
 ## 📊 Reporting
 
-- **UI Tests:** TestNG & Cucumber HTML reports  
-- **API Tests:** Postman reports & RestAssured logs  
-- **Performance:** JMeter HTML Dashboard  
-- **CI/CD:** Jenkins console & build reports  
+- **UI Tests:** TestNG & Cucumber HTML reports
+- **API Tests:** Postman reports & RestAssured logs
+- **Performance:** JMeter HTML Dashboard
+- **CI/CD:** Jenkins console & build reports
 
 ---
 
@@ -157,10 +172,10 @@ This framework delivers a **scalable, maintainable, and production-ready automat
 
 ## 👥 Contributors
 
-- <img src="https://avatars.githubusercontent.com/debanjanx-dev" width="20"/> **[Debanjan Mukherjee](https://github.com/debanjanx-dev)** – Selenium + TestNG  
-- <img src="https://avatars.githubusercontent.com/sohamghs02" width="20"/> **[Soham Ghosh](https://github.com/sohamghs02)** – Selenium + Cucumber  
-- <img src="https://avatars.githubusercontent.com/Roach119" width="20"/> **[Uddipan Sengupta](https://github.com/Roach119)** – Postman & Exploratory Testing  
-- <img src="https://avatars.githubusercontent.com/arunava2018" width="20"/> **[Arunava Banerjee](https://github.com/arunava2018)** – RestAssured API Automation  
-- <img src="https://avatars.githubusercontent.com/aryeshworks" width="20"/> **[Aryesh Saha](https://github.com/aryeshworks)** – JMeter & Jenkins  
+- <img src="https://avatars.githubusercontent.com/debanjanx-dev" width="20"/> **[Debanjan Mukherjee](https://github.com/debanjanx-dev)** – Selenium + TestNG
+- <img src="https://avatars.githubusercontent.com/sohamghs02" width="20"/> **[Soham Ghosh](https://github.com/sohamghs02)** – Selenium + Cucumber
+- <img src="https://avatars.githubusercontent.com/Roach119" width="20"/> **[Uddipan Sengupta](https://github.com/Roach119)** – Postman & Exploratory Testing
+- <img src="https://avatars.githubusercontent.com/arunava2018" width="20"/> **[Arunava Banerjee](https://github.com/arunava2018)** – RestAssured API Automation
+- <img src="https://avatars.githubusercontent.com/aryeshworks" width="20"/> **[Aryesh Saha](https://github.com/aryeshworks)** – JMeter & Jenkins
 
 ---
