@@ -4,6 +4,7 @@ import api.config.Config;
 import api.payloads.LoginRequest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -11,7 +12,7 @@ import static org.hamcrest.Matchers.*;
 
 public class AuthApiTest {
 
-    @BeforeMethod
+    @BeforeClass
     public void init() {
         RestAssured.baseURI = Config.BASE_URI;
     }

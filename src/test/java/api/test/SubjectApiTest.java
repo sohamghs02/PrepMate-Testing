@@ -6,6 +6,7 @@ import api.config.Config;
 import api.payloads.SubjectRequest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -14,7 +15,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.Matchers.hasKey;
 
 public class SubjectApiTest {
-    @BeforeMethod
+    @BeforeClass
     public void init() {
         RestAssured.baseURI = Config.BASE_URI;
     }
