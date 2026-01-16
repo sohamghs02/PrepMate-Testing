@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd"><suite name="All Test Suite"><test verbose="2" preserve-order="true" name="C:/Users/ArunavaBanerjee/Documents/PrepMate-Testing"><classes/></test></suite>
+<suite parallel="false" name="Suite">
+    <test name="apiTest">
+        <classes>
+            <class name="api.test.AuthApiTest"/>
+            <class name="api.test.SubjectApiTest"/>
+            <class name="api.test.SubtopicApiTest"/>
+        </classes>
+    </test>
+</suite>
