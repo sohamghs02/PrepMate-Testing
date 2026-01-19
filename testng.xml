@@ -5,6 +5,7 @@
             <class name="api.test.AuthApiTest"/>
             <class name="api.test.SubjectApiTest"/>
             <class name="api.test.SubtopicApiTest"/>
+            <class name="api.test.QuestionTest"/>
         </classes>
     </test>
 </suite>
