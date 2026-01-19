@@ -15,11 +15,19 @@ public class BasePage {
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        if (driver != null) {
+            this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        }
+    }
+
+    // ---------- CORE HELPERS ----------
+
+    protected WebElement getElement(By locator) {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
     protected void type(By locator, String text) {
-        WebElement el = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        WebElement el = getElement(locator);
         el.clear();
         el.sendKeys(text);
     }
@@ -28,10 +36,14 @@ public class BasePage {
         wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
     }
 
+    // ---------- WAITS ----------
+
     protected boolean waitForToast(By locator, int seconds) {
         try {
             WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(seconds));
-            return shortWait.until(ExpectedConditions.visibilityOfElementLocated(locator)).isDisplayed();
+            return shortWait
+                    .until(ExpectedConditions.visibilityOfElementLocated(locator))
+                    .isDisplayed();
         } catch (TimeoutException e) {
             return false;
         }
@@ -42,9 +54,13 @@ public class BasePage {
                 .until(ExpectedConditions.urlContains(value));
     }
 
+    // ---------- SCREENSHOT ----------
+
     public void takeScreenshot(String testName) {
         File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        File dest = new File("screenshots/" + testName + "_" + System.currentTimeMillis() + ".png");
+        File dest = new File(
+                "screenshots/" + testName + "_" + System.currentTimeMillis() + ".png"
+        );
 
         try {
             Files.createDirectories(dest.getParentFile().toPath());
@@ -52,5 +68,22 @@ public class BasePage {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    // ---------- SCROLL & JS CLICK (FIXES STICKY HEADER ISSUE) ----------
+
+    protected void scrollIntoView(By locator) {
+        WebElement element = getElement(locator);
+        ((JavascriptExecutor) driver)
+                .executeScript(
+                        "arguments[0].scrollIntoView({block:'center', inline:'nearest'});",
+                        element
+                );
+    }
+
+    protected void jsClick(By locator) {
+        WebElement element = getElement(locator);
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].click();", element);
     }
 }
