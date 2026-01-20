@@ -8,7 +8,6 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterMethod;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +16,7 @@ import java.time.Duration;
 
 public class subjectAdd {
 
-    WebDriver driver;
+    public static WebDriver driver;
     WebDriverWait wait;
 
     @Given("User is in Home Page")
@@ -59,46 +58,82 @@ public class subjectAdd {
     @When("User enters admin panel and clicks on Add Subject")
     public void user_enters_admin_panel_and_clicks_on_add_subject() {
 
-        // Wait for loader to disappear
+        // Wait for any full-screen overlay to disappear
         wait.until(ExpectedConditions.invisibilityOfElementLocated(
                 By.xpath("//div[contains(@class,'fixed') and contains(@class,'inset-0')]")
         ));
 
-        // Open Admin panel
-        wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//a[@href='/admin']")
-        )).click();
+        // Click Admin panel
+        WebElement adminLink = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        By.xpath("//a[@href='/admin']")
+                )
+        );
+        adminLink.click();
 
-        // Click Add Subject card ONCE
-        wait.until(ExpectedConditions.elementToBeClickable(
+        // 3Wait for admin dashboard to fully load
+        wait.until(ExpectedConditions.presenceOfElementLocated(
                 By.xpath("//div[contains(text(),'Add Subject')]")
-        )).click();
+        ));
+
+        // Locate Add Subject card
+        WebElement addSubject = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        By.xpath("//div[normalize-space()='Add Subject']")
+                )
+        );
+
+        // Scroll into view (VERY IMPORTANT)
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", addSubject);
+
+        // Small UI settle wait (React animation)
+        wait.until(ExpectedConditions.elementToBeClickable(addSubject));
+
+        // Click (fallback-safe)
+        try {
+            addSubject.click();
+        } catch (ElementClickInterceptedException e) {
+            ((JavascriptExecutor) driver)
+                    .executeScript("arguments[0].click();", addSubject);
+        }
     }
+
 
     @When("User enters Subject Name and Description and Choose Icon")
     public void user_enters_subject_name_and_description_and_choose_icon() {
 
-        // Wait for form (Subject Name input proves page loaded)
+        // Subject Name
         WebElement subjectName = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(
-                        By.xpath("//input[@placeholder='Subject Name']")
+                        By.xpath("//input[@name='name']")
                 )
         );
+        subjectName.clear();
         subjectName.sendKeys("Cucumber");
 
-        driver.findElement(
-                By.xpath("//textarea[@placeholder='Description']")
-        ).sendKeys("This is a BDD Testing Framework");
+        // Description (FIXED)
+        WebElement description = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("//textarea[@name='description']")
+                )
+        );
+        description.clear();
+        description.sendKeys("This is a BDD Testing Framework");
 
+        // Icon dropdown (FIXED)
         WebElement iconDropdown = wait.until(
                 ExpectedConditions.elementToBeClickable(
-                        By.xpath("//select")
+                        By.xpath("//select[@name='icon']")
                 )
         );
 
         new Select(iconDropdown)
                 .selectByVisibleText("Cyber Security (Lock)");
     }
+
+
+
 
     @When("User clicks on add subject")
     public void user_clicks_on_add_subject() {
@@ -117,30 +152,5 @@ public class subjectAdd {
         );
 
         System.out.println("SUCCESS: " + successMsg.getText());
-    }
-
-    public void takeScreenshot(String fileName) {
-        try {
-            File src = ((TakesScreenshot) driver)
-                    .getScreenshotAs(OutputType.FILE);
-
-            File dest = new File(
-                    System.getProperty("user.dir")
-                            + "/screenshots/"
-                            + fileName + "_" + System.currentTimeMillis() + ".png"
-            );
-
-            Files.createDirectories(dest.getParentFile().toPath());
-            Files.copy(src.toPath(), dest.toPath());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @AfterMethod
-    public void tearDown() throws InterruptedException {
-        Thread.sleep(3000);
-        driver.quit();
     }
 }
