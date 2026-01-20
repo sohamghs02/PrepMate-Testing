@@ -1,5 +1,6 @@
 package StepDefinition;
 
+import StepDefinition.Hooks.Hooks;
 import io.cucumber.java.After;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -19,11 +20,10 @@ public class Login {
 
     @Given("User is in the Sign-UpPage")
     public void user_is_in_the_sign_up_page() {
-        driver = new EdgeDriver();
-        driver.get("https://prep-mate-full-stack-alpha.vercel.app/");
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+        driver = Hooks.driver;
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        driver.get("https://prep-mate-full-stack-alpha.vercel.app/");
+
     }
 
     @When("User clicks on Login Button")
@@ -47,7 +47,7 @@ public class Login {
     @Then("System shows {string} and user successfully enters the dashboard section")
     public void system_shows_and_user_successfully_enters_the_dashboard_section(String result) {
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
 
         if (result.equals("Dashboard")) {
 
@@ -60,22 +60,17 @@ public class Login {
                     driver.getCurrentUrl()
             );
 
-        } else if (result.equals("Invalid Credentials")) {
+        } else if (result.equals("Invalid credentials")) {
 
             String errorMessage = wait.until(driver ->
                     driver.findElement(By.xpath("//p[contains(text(),'Invalid')]"))
                             .getText()
             );
 
-            Assert.assertEquals("Invalid Credentials", errorMessage);
+            Assert.assertEquals("Invalid credentials", errorMessage);
         }
     }
 
 
-    @After
-    public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
+
 }
