@@ -6,10 +6,18 @@
         <listener class-name="seleniumTest.listeners.TestListener"/>
     </listeners>
 
-    <test name="All Page Tests">
-        <packages>
-            <package name="seleniumTest.pageTest"/>
-        </packages>
+    <!-- 🔹 TEST 1: SIGNUP (FIRST PRIORITY) -->
+    <test name="Signup Tests">
+        <classes>
+            <class name="seleniumTest.pageTest.SignupPageTest"/>
+        </classes>
+    </test>
+
+    <!-- 🔹 TEST 2: DASHBOARD FLOW (SECOND PRIORITY) -->
+    <test name="Dashboard Flow Tests">
+        <classes>
+            <class name="seleniumTest.pageTest.DashboardFlowTest"/>
+        </classes>
     </test>
 
 </suite>
