@@ -11,12 +11,6 @@ pipeline {
         maven 'NewMavenInstallation_8thJan26'
     }
 
-    environment {
-        RA_DIR     = 'java'
-        JMETER_DIR = 'jmeter'
-        JMX_FILE   = 'PrepMatePerfTest.jmx'
-    }
-
     stages {
 
         stage('Checkout') {
@@ -57,16 +51,16 @@ pipeline {
 
         stage('Performance Tests') {
             steps {
-                dir("${env.JMETER_DIR}") {
-                    bat """
-                        if exist report rmdir /s /q report
-                        if exist results.jtl del /f /q results.jtl
+                bat """
+                    cd src/test/jmeter
 
-                        jmeter -n -t ${env.JMX_FILE} ^
-                          -l results.jtl ^
-                          -e -o report
-                    """
-                }
+                    if exist report rmdir /s /q report
+                    if exist results.jtl del /f /q results.jtl
+
+                    jmeter -n -t PrepMatePerfTest.jmx ^
+                      -l results.jtl ^
+                      -e -o report
+                """
             }
         }
     }
@@ -84,13 +78,13 @@ pipeline {
                 reportName: 'Cucumber UI Test Report'
             ])
 
-            archiveArtifacts artifacts: "${env.JMETER_DIR}/results.jtl, ${env.JMETER_DIR}/report/**", fingerprint: true
+            archiveArtifacts artifacts: "src/test/jmeter/results.jtl, src/test/jmeter/report/**", fingerprint: true
 
             publishHTML([
                 allowMissing: true,
                 alwaysLinkToLastBuild: true,
                 keepAll: true,
-                reportDir: "${env.JMETER_DIR}/report",
+                reportDir: "src/test/jmeter/report",
                 reportFiles: 'index.html',
                 reportName: 'Prepmate Performance Dashboard'
             ])
