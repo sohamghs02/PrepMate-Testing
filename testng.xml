@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite parallel="false" name="Suite">
+    <listerners>
+        <listerner class-name="seleniumTest.listeners.TestListener"/>
+    </listerners>
     <test name="apiTest">
         <classes>
             <class name="api.test.AuthApiTest"/>
@@ -7,6 +10,12 @@
             <class name="api.test.SubtopicApiTest"/>
             <class name="api.test.QuestionTest"/>
             <class name="api.test.MarkProgressApiTest"/>
+        </classes>
+    </test>
+    <test name="Selenium End to End Testing" preserve-order="true">
+        <classes>
+            <class name="seleniumTest.pageTest.SignupPageTest"/>
+            <class name="seleniumTest.pageTest.DashboardFlowTest"/>
         </classes>
     </test>
 </suite>
