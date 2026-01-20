@@ -3,7 +3,18 @@
     <listerners>
         <listerner class-name="seleniumTest.listeners.TestListener"/>
     </listerners>
-    <test name="apiTest">
+    <test name="Selenium End to End Testing" preserve-order="true">
+        <classes>
+            <class name="seleniumTest.pageTest.SignupPageTest"/>
+            <class name="seleniumTest.pageTest.DashboardFlowTest"/>
+        </classes>
+    </test>
+<!--    <test name="Cucumber Tests">-->
+<!--        <classes>-->
+<!--            <class name="TestRunner.StepRunner"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+    <test name="Api Endpoint Testing">
         <classes>
             <class name="api.test.AuthApiTest"/>
             <class name="api.test.SubjectApiTest"/>
@@ -12,10 +23,5 @@
             <class name="api.test.MarkProgressApiTest"/>
         </classes>
     </test>
-    <test name="Selenium End to End Testing" preserve-order="true">
-        <classes>
-            <class name="seleniumTest.pageTest.SignupPageTest"/>
-            <class name="seleniumTest.pageTest.DashboardFlowTest"/>
-        </classes>
-    </test>
+
 </suite>
