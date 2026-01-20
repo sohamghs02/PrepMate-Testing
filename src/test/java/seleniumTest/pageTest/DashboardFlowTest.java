@@ -10,69 +10,84 @@ import seleniumTest.pages.DashboardPage;
 import seleniumTest.pages.LoginPage;
 import seleniumTest.pages.SubjectPage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Listeners(TestListener.class)
 public class DashboardFlowTest extends BaseTest {
 
     @Test
-    public void verifyOperatingSystemFlow() {
-
-        // 🔹 Login
+    public void verifyOperatingSystemFlowAndComputerArchitecture() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.login("test@test.com", "123456");
         loginPage.waitForUrlContains("dashboard", 20);
 
-        // 🔹 Dashboard
         DashboardPage dashboardPage = new DashboardPage(driver);
         Assert.assertTrue(
                 dashboardPage.isDashboardLoaded(),
                 "Dashboard not loaded after login"
         );
 
+        // 🔹 PART 1: OPERATING SYSTEM (HAS SUB-TOPICS)
+
         dashboardPage.clickSubject("Operating System");
 
-        // 🔹 Subject Page
         SubjectPage subjectPage = new SubjectPage(driver);
         subjectPage.waitForSubjectToLoad();
 
         String chapter = "Introduction & Basics";
 
-        // 🔹 Open chapter
         subjectPage.openChapter(chapter);
 
-        // 🔹 Wait for sub-topics (up to 10s)
-        List<WebElement> subTopics =
+        List<WebElement> subTopicElements =
                 subjectPage.waitForSubTopics(chapter);
 
-        System.out.println("Total sub-topics found: " + subTopics.size());
+        List<String> subTopicNames = new ArrayList<>();
+        for (WebElement subTopicElement : subTopicElements) {
+            String text = subTopicElement.getText();
+            subTopicNames.add(text);
+        }
 
-        // 🔹 Mark ALL sub-topics
-        for (int i = 0; i < subTopics.size(); i++) {
+        System.out.println("Total sub-topics found: " + subTopicNames.size());
+        for (String subTopicName : subTopicNames) {
 
-            // React-safe re-open
             subjectPage.openChapter(chapter);
-            subTopics = subjectPage.waitForSubTopics(chapter);
-
-            WebElement subTopic = subTopics.get(i);
-            String subTopicName = subTopic.getText();
 
             System.out.println("Marking sub-topic: " + subTopicName);
 
-            subTopic.click();
+            subjectPage.openSubTopicByName(subTopicName);
 
-            // ✅ Correct marking logic
             subjectPage.waitAndMarkAsRead();
 
             subjectPage.closeChapter(chapter);
         }
 
-        // 🔹 Final assertion
         Assert.assertTrue(
                 subjectPage.isLearningProgressVisible(),
-                "Learning Progress not visible after completing topic"
+                "Learning Progress not visible after completing Operating System"
         );
 
-        System.out.println("✅ All sub-topics marked and Learning Progress verified");
+        System.out.println("✅ Operating System completed successfully");
+        // 🔹 PART 2: COMPUTER ARCHITECTURE (NO SUB-TOPICS)
+        driver.navigate().back();
+
+        Assert.assertTrue(
+                dashboardPage.isDashboardLoaded(),
+                "Dashboard not loaded after navigating back"
+        );
+
+        dashboardPage.clickSubject("Computer Architecture");
+
+        SubjectPage computerArchPage = new SubjectPage(driver);
+        computerArchPage.waitForSubjectToLoad();
+
+        Assert.assertTrue(
+                computerArchPage.isNoSubTopicsMessageVisible(),
+                "Expected 'No subtopics available' message not shown"
+        );
+
+        System.out.println(
+                "✅ Computer Architecture correctly shows no sub-topics message"
+        );
     }
 }
