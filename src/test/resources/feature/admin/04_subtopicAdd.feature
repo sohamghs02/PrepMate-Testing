@@ -1,3 +1,4 @@
+@run4
 Feature: User successfully adds a new subtopic
   Scenario: User successfully adds a new subtopic in OOP
 

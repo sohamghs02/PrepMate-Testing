@@ -61,43 +61,73 @@ public class subtopicAdd {
     @When("User clicks on admin panel and clicks on add subtopic")
     public void user_clicks_on_admin_panel_and_clicks_on_add_subtopic() {
 
-        // Wait for loader to disappear
+        // Wait for any full-screen overlay to disappear
         wait.until(ExpectedConditions.invisibilityOfElementLocated(
                 By.xpath("//div[contains(@class,'fixed') and contains(@class,'inset-0')]")
         ));
 
-        // Open admin panel
-        wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//a[@href='/admin']")
-        )).click();
-
-        // Click Add Subtopic card ONCE
-        wait.until(ExpectedConditions.elementToBeClickable(
+        // Click Admin panel
+        WebElement adminLink = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        By.xpath("//a[@href='/admin']")
+                )
+        );
+        adminLink.click();
+        System.out.println("Clicked on admin panel and clicks on add subtopic");
+        // 3Wait for admin dashboard to fully load
+        wait.until(ExpectedConditions.presenceOfElementLocated(
                 By.xpath("//div[contains(text(),'Add Subtopic')]")
-        )).click();
+        ));
+
+        // Locate Add Subject card
+        WebElement addSubtopic = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        By.xpath("//div[normalize-space()='Add Subtopic']")
+                )
+        );
+
+        // Scroll into view (VERY IMPORTANT)
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", addSubtopic);
+
+        // Small UI settle wait (React animation)
+        wait.until(ExpectedConditions.elementToBeClickable(addSubtopic));
+
+        // Click (fallback-safe)
+        try {
+            addSubtopic.click();
+        } catch (ElementClickInterceptedException e) {
+            ((JavascriptExecutor) driver)
+                    .executeScript("arguments[0].click();", addSubtopic);
+        }
     }
 
     @When("User clicks on Select Subject and clicks on Add Subtopic")
     public void user_clicks_on_select_subject_and_clicks_on_add_subtopic() {
 
-        // Wait for Add Subtopic FORM (this confirms navigation)
+        // Subtopic name
         WebElement subtopicName = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(
-                        By.xpath("//input[@placeholder='Subtopic Name']")
+                        By.xpath("//input[@name='name' and contains(@placeholder,'subtopic')]")
                 )
         );
-
+        subtopicName.clear();
         subtopicName.sendKeys("This is Testing Subtopic");
 
         WebElement subjectDropdown = wait.until(
                 ExpectedConditions.elementToBeClickable(
-                        By.xpath("//select")
+                        By.xpath("//select[@name='subjectId']")
                 )
         );
-
-        new Select(subjectDropdown)
-                .selectByVisibleText("Computer Networks");
+        subjectDropdown.click();
+        WebElement subjectOption = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        By.xpath("//option[normalize-space()='Computer Networks']")
+                )
+        );
+        subjectOption.click();
     }
+
 
     @When("User clics on Add Subtopic Button")
     public void user_clics_on_add_subtopic_button() {
