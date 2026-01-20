@@ -75,6 +75,15 @@ pipeline {
         always {
             junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
 
+            publishHTML([
+                allowMissing: false,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: 'target',
+                reportFiles: 'cucumber-report.html',
+                reportName: 'Cucumber UI Test Report'
+            ])
+
             archiveArtifacts artifacts: "${env.JMETER_DIR}/results.jtl, ${env.JMETER_DIR}/report/**", fingerprint: true
 
             publishHTML([
