@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     environment {
+        RA_DIR = 'java'
         JMETER_DIR = 'jmeter'
         JMX_FILE   = 'PrepMatePerfTest.jmx'
     }
@@ -10,6 +11,24 @@ pipeline {
         stage('Setup') {
             steps {
                 git branch: 'main', url: 'https://github.com/sohamghs02/PrepMate-Testing.git'
+            }
+        }
+
+        stage('Selenium + TestNG Tests') {
+            steps {
+                bat "mvn test -Dtest=SignupPageTest,DashboardFlowTest"
+            }
+        }
+
+        stage('Cucumber + JUnit Tests') {
+            steps {
+                bat "mvn test -Dtest=StepRunner"
+            }
+        }
+
+        stage('RestAssured Tests') {
+            steps {
+                bat "mvn test -Dtest=api.**"
             }
         }
 
