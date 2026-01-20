@@ -1,31 +1,27 @@
 package StepDefinition.admin;
 
+import StepDefinition.Hooks.Hooks;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.*;
-import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.time.Duration;
 
-public class subjectAdd {
+public class SubjectAdd {
 
-    public static WebDriver driver;
+    WebDriver driver;
     WebDriverWait wait;
+
 
     @Given("User is in Home Page")
     public void user_is_in_home_page() {
-        driver = new EdgeDriver();
-        driver.manage().window().maximize();
-        driver.get("https://prep-mate-full-stack-alpha.vercel.app/");
-
+        driver = Hooks.driver;
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        driver.get("https://prep-mate-full-stack-alpha.vercel.app/");
     }
 
     @When("User clicks on Login")

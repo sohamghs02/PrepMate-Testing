@@ -1,5 +1,6 @@
 package StepDefinition;
 
+import StepDefinition.Hooks.Hooks;
 import io.cucumber.java.After;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -19,11 +20,10 @@ public class SignUp {
 
     @Given("User is in the SignUpPage")
     public void user_is_in_the_sign_up_page() {
-        driver = new EdgeDriver();
-        driver.get("https://prep-mate-full-stack-alpha.vercel.app/");
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+        driver = Hooks.driver;
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        driver.get("https://prep-mate-full-stack-alpha.vercel.app/");
+
     }
 
     @When("User clicks on Signup Button")

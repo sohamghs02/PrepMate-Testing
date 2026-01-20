@@ -1,30 +1,26 @@
 package StepDefinition.admin;
 
+import StepDefinition.Hooks.Hooks;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.*;
-import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterMethod;
 
 import java.time.Duration;
 
-public class subtopicAdd {
+public class SubtopicAdd {
 
     WebDriver driver;
     WebDriverWait wait;
 
     @Given("User is in the Home Page Section")
     public void user_is_in_the_home_page_section() {
-        driver = new EdgeDriver();
-        driver.manage().window().maximize();
-        driver.get("https://prep-mate-full-stack-alpha.vercel.app/");
-
+        driver = Hooks.driver;
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        driver.get("https://prep-mate-full-stack-alpha.vercel.app/");
     }
 
     @When("User Clicks on Login")
@@ -150,9 +146,5 @@ public class subtopicAdd {
         System.out.println("SUCCESS: " + successMsg.getText());
     }
 
-    @AfterMethod
-    public void tearDown() throws InterruptedException {
-        Thread.sleep(3000);
-        driver.quit();
-    }
+
 }
