@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+            maven 'NewMavenInstallation_8thJan26'
+    }
+
     environment {
         RA_DIR = 'java'
         JMETER_DIR = 'jmeter'
@@ -36,12 +40,12 @@ pipeline {
             steps {
                 dir("${env.JMETER_DIR}") {
                     bat """
-                        if exist report rmdir /s /q report
+                        if exist prepmate-report rmdir /s /q prepmate-report
                         if exist results.jtl del /f /q results.jtl
 
                         jmeter -n -t ${env.JMX_FILE} ^
                           -l results.jtl ^
-                          -e -o report
+                          -e -o prepmate-report
                     """
                 }
             }
@@ -50,7 +54,7 @@ pipeline {
 
     post {
         always {
-            archiveArtifacts artifacts: "results.jtl, report/**", fingerprint: true
+            archiveArtifacts artifacts: "results.jtl, prepmate-report/**", fingerprint: true
             publishHTML([
                 allowMissing: true,
                 alwaysLinkToLastBuild: true,
