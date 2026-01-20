@@ -1,3 +1,4 @@
+@run3
 Feature: Testing to add a new subject from admin panel
   Scenario: User is able to add a new subject Cucumber in Subjects section from admin panel
     Given User is in Home Page

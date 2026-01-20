@@ -1,3 +1,4 @@
+@run1
 Feature: User Signup for Prepmate Web Application
 
   Background:
