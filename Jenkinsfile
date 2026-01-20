@@ -52,7 +52,7 @@ pipeline {
         stage('Performance Tests') {
             steps {
                 bat """
-                    cd jmeter
+                    cd src/test/jmeter
 
                     if exist report rmdir /s /q report
                     if exist results.jtl del /f /q results.jtl
@@ -78,13 +78,13 @@ pipeline {
                 reportName: 'Cucumber UI Test Report'
             ])
 
-            archiveArtifacts artifacts: "jmeter/results.jtl, jmeter/report/**", fingerprint: true
+            archiveArtifacts artifacts: "src/test/jmeter/results.jtl, src/test/jmeter/report/**", fingerprint: true
 
             publishHTML([
                 allowMissing: true,
                 alwaysLinkToLastBuild: true,
                 keepAll: true,
-                reportDir: "jmeter/report",
+                reportDir: "src/test/jmeter/report",
                 reportFiles: 'index.html',
                 reportName: 'Prepmate Performance Dashboard'
             ])
