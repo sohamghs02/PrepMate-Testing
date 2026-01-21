@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     tolerantMaven(
-                        "mvn test -Dtest=SignupPageTest,DashboardFlowTest"
+                        "mvn test -Pui"
                     )
                 }
             }
@@ -33,7 +33,7 @@ pipeline {
             steps {
                 script {
                     tolerantMaven(
-                        "mvn test -Dtest=api.**"
+                        "mvn test -Papi"
                     )
                 }
             }
