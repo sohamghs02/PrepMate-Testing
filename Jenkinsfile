@@ -73,7 +73,7 @@ pipeline {
                 allowMissing: false,
                 alwaysLinkToLastBuild: true,
                 keepAll: true,
-                reportDir: 'target/cucumber-bdd',
+                reportDir: 'target',
                 reportFiles: 'cucumber-report.html',
                 reportName: 'Cucumber UI Test Report'
             ])
