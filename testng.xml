@@ -5,7 +5,7 @@
     </listerners>
     <test name="Selenium End to End Testing" preserve-order="true">
         <classes>
-            <class name="seleniumTest.pageTest.SignupPageTest"/>
+            <class name="seleniumTest.pageTest.SignupPageFlowTest"/>
             <class name="seleniumTest.pageTest.DashboardFlowTest"/>
         </classes>
     </test>

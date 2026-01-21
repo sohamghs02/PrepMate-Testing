@@ -77,6 +77,12 @@
           <scope>compile</scope>
       </dependency>
   </dependencies>
+
+    <properties>
+        <test.includes>__none__</test.includes>
+        <surefire.suite>default</surefire.suite>
+    </properties>
+
     <build>
         <plugins>
             <plugin>
@@ -87,6 +93,38 @@
                     <target>16</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.4</version>
+
+                <configuration>
+                    <includes>
+                        <include>${test.includes}</include>
+                    </includes>
+
+                    <reportsDirectory>
+                        ${project.build.directory}/surefire-reports-${surefire.suite}
+                    </reportsDirectory>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>ui</id>
+            <properties>
+                <test.includes>**/*FlowTest.java</test.includes>
+                <surefire.suite>ui</surefire.suite>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>api</id>
+            <properties>
+                <test.includes>**/api/**</test.includes>
+                <surefire.suite>api</surefire.suite>
+            </properties>
+        </profile>
+    </profiles>
 </project>

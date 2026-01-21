@@ -9,7 +9,7 @@ import seleniumTest.listeners.TestListener;
 import seleniumTest.pages.SignupPage;
 
 @Listeners(TestListener.class)
-public class SignupPageTest extends BaseTest {
+public class SignupPageFlowTest extends BaseTest {
 
     @Test
     public void verifyUserCanRegisterSuccessfully() {
