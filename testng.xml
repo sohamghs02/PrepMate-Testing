@@ -11,7 +11,7 @@
     </test>
 <!--    <test name="Cucumber Tests">-->
 <!--        <classes>-->
-<!--            <class name="TestRunner.StepRunner"/>-->
+<!--            <class name="TestRunner.StepRunnerTest"/>-->
 <!--        </classes>-->
 <!--    </test>-->
     <test name="Api Endpoint Testing">

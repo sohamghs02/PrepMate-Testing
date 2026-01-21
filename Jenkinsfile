@@ -33,7 +33,7 @@ pipeline {
             steps {
                 script {
                     tolerantMaven(
-                        "mvn test -Dtest=StepRunner"
+                        "mvn test -Dtest=StepRunnerTest"
                     )
                 }
             }
@@ -73,7 +73,7 @@ pipeline {
                 allowMissing: false,
                 alwaysLinkToLastBuild: true,
                 keepAll: true,
-                reportDir: 'target',
+                reportDir: 'target/cucumber-bdd',
                 reportFiles: 'cucumber-report.html',
                 reportName: 'Cucumber UI Test Report'
             ])
