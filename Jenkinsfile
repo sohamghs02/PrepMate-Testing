@@ -33,7 +33,7 @@ pipeline {
             steps {
                 script {
                     tolerantMaven(
-                        "mvn test -Dtest=StepRunnerTest"
+                        "mvn test -Pcucumber"
                     )
                 }
             }

@@ -1,12 +1,22 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>prepmate-testing</groupId>
-  <artifactId>PrepMate-Testing</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  
-  <dependencies>
-  
-          <!-- Source: https://mvnrepository.com/artifact/org.testng/testng -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>prepmate-testing</groupId>
+    <artifactId>PrepMate-Testing</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <profiles>
+        <!-- CUCUMBER ONLY -->
+        <profile>
+            <id>cucumber</id>
+            <properties>
+                <test.includes>**/*StepRunner.java</test.includes>
+            </properties>
+        </profile>
+    </profiles>
+
+    <dependencies>
+        <!-- Source: https://mvnrepository.com/artifact/org.testng/testng -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
@@ -70,14 +80,14 @@
             <scope>compile</scope>
         </dependency>
 
-      <!-- Source: https://mvnrepository.com/artifact/com.google.code.gson/gson -->
-      <dependency>
-          <groupId>com.google.code.gson</groupId>
-          <artifactId>gson</artifactId>
-          <version>2.13.2</version>
-          <scope>compile</scope>
-      </dependency>
-  </dependencies>
+        <!-- Source: https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.13.2</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>
@@ -86,6 +96,18 @@
                 <configuration>
                     <source>16</source>
                     <target>16</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+
+                <configuration>
+                    <includes>
+                        <include>${test.includes}</include>
+                    </includes>
                 </configuration>
             </plugin>
         </plugins>

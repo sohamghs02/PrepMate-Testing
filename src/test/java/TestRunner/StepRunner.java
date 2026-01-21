@@ -14,5 +14,5 @@ import org.junit.runner.RunWith;
                 "json:target/cucumber-bdd/cucumber.json"
         }
 )
-public class StepRunnerTest {
+public class StepRunner {
 }
