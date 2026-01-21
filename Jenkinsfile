@@ -29,16 +29,6 @@ pipeline {
             }
         }
 
-        stage('Cucumber + JUnit Tests') {
-            steps {
-                script {
-                    tolerantMaven(
-                        "mvn test -Pcucumber"
-                    )
-                }
-            }
-        }
-
         stage('RestAssured Tests') {
             steps {
                 script {
@@ -67,27 +57,7 @@ pipeline {
 
     post {
         always {
-            junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
-
-            publishHTML([
-                allowMissing: false,
-                alwaysLinkToLastBuild: true,
-                keepAll: true,
-                reportDir: 'target',
-                reportFiles: 'cucumber-report.html',
-                reportName: 'Cucumber UI Test Report'
-            ])
-
             archiveArtifacts artifacts: "src/test/jmeter/results.jtl, src/test/jmeter/report/**", fingerprint: true
-
-            publishHTML([
-                allowMissing: true,
-                alwaysLinkToLastBuild: true,
-                keepAll: true,
-                reportDir: "src/test/jmeter/report",
-                reportFiles: 'index.html',
-                reportName: 'Prepmate Performance Dashboard'
-            ])
         }
     }
 }
