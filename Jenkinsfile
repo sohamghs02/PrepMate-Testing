@@ -57,6 +57,7 @@ pipeline {
 
     post {
         always {
+            junit '**/target/surefire-reports-*/**/*.xml'
             archiveArtifacts artifacts: "src/test/jmeter/results.jtl, src/test/jmeter/report/**", fingerprint: true
         }
     }
